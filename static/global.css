@@ -1,0 +1,7 @@
+.menu {
+	position: sticky;
+	top: 0;
+	padding: 1em 0;
+	max-height: 100vh;
+	overflow: auto;
+}
