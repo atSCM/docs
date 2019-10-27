@@ -28,7 +28,7 @@
     "dev": "sapper dev",
     "export": "sapper export --legacy",
     "fetch-data": "node -r esm ./scripts/fetch-data.js",
-    "format": "prettier \"**/*\" !.gitignore !.eslintignore \"!{static,__sapper__,test/report,src/data}/**/*\" --write",
+    "format": "prettier \"**/*\" !.gitignore !.eslintignore \"!{static,__sapper__,test/report,src/data,docs/assets}/**/*\" --write",
     "lint": "eslint --ignore-path .gitignore --ext .js,.svelte .",
     "start": "node __sapper__/build",
     "test": "run-p --race dev cy:run",
