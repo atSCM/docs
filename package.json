@@ -63,7 +63,7 @@
     "@types/fs-extra": "^8.0.1",
     "@types/html-to-text": "^1.4.31",
     "bulma": "^0.8.0",
-    "cypress": "3.4.1",
+    "cypress": "3.5.0",
     "eslint": "6.5.1",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-svelte3": "^2.7.3",
