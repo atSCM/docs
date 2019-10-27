@@ -20,7 +20,7 @@
     <ul class="menu-list">
       {#each items as item}
         <li>
-          <a href={apiLink(item.slug)}>
+          <a href={apiLink(item)}>
             <span
               class="tag"
               class:is-success={item.kind === 'class'}

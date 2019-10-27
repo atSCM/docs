@@ -53,7 +53,7 @@
           {#each folders as { items, dirname } (dirname)}
             <optgroup label={dirname}>
               {#each items as item}
-                <option value={apiLink(item.slug)}>{item.name}</option>
+                <option value={apiLink(item)}>{item.name}</option>
               {/each}
             </optgroup>
           {/each}
