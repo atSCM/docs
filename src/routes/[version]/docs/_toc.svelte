@@ -8,7 +8,7 @@
   const isActive = topic => $page.params.manual === topic.slug;
 
   const link = (topic, section) =>
-    `${$page.params.version}/docs/${topic.slug}/${section ? `#${section.slug}` : ''}`;
+    `${$page.params.version}/docs/${topic.slug}${section ? `/#${section.slug}` : ''}`;
 
   $: topicsExpanded = topics.map(t => isActive(t));
 </script>
