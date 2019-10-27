@@ -92,7 +92,7 @@ jobs:
             cp -r ../project/__sapper__/export/* .
             git add .
             git commit -m "$(cat ../message) [ci skip]"
-            git push origin deploy
+            git push origin master
             cd ../project
 
   lighthouse:
