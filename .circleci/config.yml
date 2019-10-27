@@ -22,7 +22,6 @@ orbs:
               name: Setting up git user
               command: git config --global user.email ci@ls-age.com && git config --global user.name "ls-age CI"
 
-
 jobs:
   install:
     executor: atscm/node
@@ -44,6 +43,7 @@ jobs:
           root: .
           paths:
             - .
+
   build:
     executor: atscm/node
     steps:
