@@ -92,7 +92,7 @@ jobs:
             git rm -rf .
             cp -r ../project/__sapper__/export/* .
             git add .
-            git commit -m "$(cat ../message)"
+            git commit -m "$(cat ../message) [ci skip]"
             git push origin deploy
             cd ../project
 
@@ -120,7 +120,7 @@ jobs:
             else
               git commit -m "docs(readme): Update lighthouse badges [ci skip]
               $(git log -1 --pretty=%B)"
-              git push origin master
+              git push origin $CIRCLE_BRANCH
             fi
 
 workflows:
@@ -139,10 +139,10 @@ workflows:
           requires:
             - build
             - lint
-          # filters:
-          #   branches:
-          #     only:
-          #       - master
+          filters:
+            branches:
+              only:
+                - build
       - lighthouse:
           requires:
             - deploy
