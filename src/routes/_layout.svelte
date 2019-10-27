@@ -1,7 +1,7 @@
 <script>
   import { setContext } from 'svelte';
   import Navbar from '../components/Navbar.svelte';
-  import { tags } from '../data/index.json';
+  import { tags } from '../data/index.json'; // eslint-disable-line import/no-unresolved
 
   export let segment;
 

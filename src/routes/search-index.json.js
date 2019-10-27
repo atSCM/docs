@@ -2,7 +2,7 @@ import { join } from 'path';
 import { readJson } from 'fs-extra';
 import toText from 'html-to-text';
 import send from '@polka/send-type';
-import { tags } from '../data/index.json';
+import { tags } from '../data/index.json'; // eslint-disable-line import/no-unresolved
 import { loadReference } from './[version]/api/_data';
 
 // NOTE: Search index is only created for tags

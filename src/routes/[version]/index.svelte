@@ -1,5 +1,5 @@
 <script context="module">
-  import { tags } from '../../data/index.json';
+  import { tags } from '../../data/index.json'; // eslint-disable-line import/no-unresolved
 
   export async function preload({ params: { version } }) {
     if (!tags.find(({ tag }) => tag === version)) {
