@@ -2,7 +2,7 @@
 
 > Sources of the page available at [atscm.github.io](https://atscm.github.io)
 
-[![CircleCI](https://circleci.com/gh/atSCM/atscm.github.io.svg?style=svg)](https://circleci.com/gh/atSCM/atscm.github.io)
+[![CircleCI](https://circleci.com/gh/atSCM/docs.svg?style=svg)](https://circleci.com/gh/atSCM/docs)
 
 **Lighthouse performance:**
 

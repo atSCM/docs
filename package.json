@@ -6,12 +6,12 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/atSCM/atscm.github.io.git"
+    "url": "git+https://github.com/atSCM/docs.git"
   },
   "bugs": {
-    "url": "https://github.com/atSCM/atscm.github.io/issues"
+    "url": "https://github.com/atSCM/docs/issues"
   },
-  "homepage": "https://github.com/atSCM/atscm.github.io#readme",
+  "homepage": "https://github.com/atSCM/docs#readme",
   "author": "Lukas Hechenberger <lukas.hechenberger@bachmann.info>",
   "keywords": [
     "atscm",

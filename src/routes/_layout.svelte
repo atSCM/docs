@@ -32,7 +32,7 @@
     <p>
       <a href="https://github.com/atSCM/atscm">Get involved</a>
       ·
-      <a href="https://github.com/atSCM/atscm.github.io">Improve this page</a>
+      <a href="https://github.com/atSCM/docs">Improve this page</a>
     </p>
   </div>
 </footer>
