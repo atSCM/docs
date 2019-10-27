@@ -52,11 +52,8 @@ jobs:
           name: Fetching data
           command: npm run fetch-data
       - run:
-          name: Building app
-          command: npm run build
-      - run:
           name: Exporting app
-          command: npm run export -- --build false
+          command: npm run export
       - persist_to_workspace:
           root: .
           paths:
