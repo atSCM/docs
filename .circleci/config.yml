@@ -1,0 +1,148 @@
+version: 2.1
+
+orbs:
+  atscm:
+    executors:
+      node:
+        docker:
+          - image: circleci/node:12
+      browsers:
+        docker:
+          - image: circleci/node:12-browsers
+    commands:
+      attach:
+        steps:
+          - checkout:
+              path: ~/project
+          - attach_workspace:
+              at: ~/project
+      git-login:
+        steps:
+          - run:
+              name: Setting up git user
+              command: git config --global user.email ci@ls-age.com && git config --global user.name "ls-age CI"
+
+
+jobs:
+  install:
+    executor: atscm/node
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-npm-deps-{{ checksum "package-lock.json" }}
+            - v2-npm-deps
+      - run:
+          name: Installing npm dependencies
+          command: npm ci
+      - save_cache:
+          key: v2-npm-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  build:
+    executor: atscm/node
+    steps:
+      - atscm/attach
+      - run:
+          name: Fetching data
+          command: npm run fetch-data
+      - run:
+          name: Building app
+          command: npm run build
+      - run:
+          name: Exporting app
+          command: npm run export -- --build false
+      - persist_to_workspace:
+          root: .
+          paths:
+            - __sapper__
+
+  lint:
+    executor: atscm/node
+    steps:
+      - atscm/attach
+      - run:
+          name: Lint sources
+          command: npm run lint -- --format junit --output-file ~/reports/eslint.xml
+      - run:
+          name: Check formatting
+          command: npm run format -- --check
+      - store_test_results:
+          path: ~/reports
+      - store_artifacts:
+          path: ~/reports
+
+  deploy:
+    executor: atscm/node
+    steps:
+      - atscm/attach
+      - atscm/git-login
+      - run:
+          name: Deploying to github pages
+          command: |
+            git log -1 --pretty=%B > ../message
+            git clone git@github.com:atSCM/atscm.github.io.git ../pages
+            cd ../pages
+            git checkout -b deploy
+            git rm -rf .
+            cp -r ../project/__sapper__/export/* .
+            git add .
+            git commit -m "$(cat ../message)"
+            git push origin deploy
+            cd ../project
+
+  lighthouse:
+    executor: atscm/browsers
+    steps:
+      - checkout
+      - atscm/git-login
+      - restore_cache:
+          keys:
+            - v1-lighthouse-cache
+      - run:
+          name: Update lighthouse badges
+          command: npx lighthouse-badges -o docs/assets -u https://atscm.github.io
+      - save_cache:
+          key: v1-lighthouse-cache
+          paths:
+            - ~/.npm
+      - run:
+          name: Commit lighthouse badges
+          command: |
+            git add docs/assets
+            if git diff --name-only --cached --exit-code; then
+              echo "Nothing to commit";
+            else
+              git commit -m "docs(readme): Update lighthouse badges [ci skip]
+              $(git log -1 --pretty=%B)"
+              git push origin master
+            fi
+
+workflows:
+  version: 2
+
+  default:
+    jobs:
+      - install
+      - build:
+          requires:
+            - install
+      - lint:
+          requires:
+            - install
+      - deploy:
+          requires:
+            - build
+            - lint
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
+      - lighthouse:
+          requires:
+            - deploy
