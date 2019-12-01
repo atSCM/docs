@@ -31,8 +31,9 @@
     "format": "prettier \"**/*\" !.gitignore !.eslintignore \"!{static,__sapper__,test/report,src/data,docs/assets}/**/*\" --write",
     "lint": "eslint --ignore-path .gitignore --ext .js,.svelte .",
     "start": "node __sapper__/build",
+    "start:export": "npx serve __sapper__/export -l 3000",
     "test": "run-p --race dev cy:run",
-    "test:ci": "run-p --race start cy:run-junit"
+    "test:ci": "run-p --race start:export cy:run-junit"
   },
   "renovate": {
     "extends": [

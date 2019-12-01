@@ -13,9 +13,9 @@ orbs:
       attach:
         steps:
           - checkout:
-              path: ~/project
+              path: /home/circleci/project
           - attach_workspace:
-              at: ~/project
+              at: /home/circleci/project
       git-login:
         steps:
           - run:
@@ -73,6 +73,29 @@ jobs:
           path: ~/reports
       - store_artifacts:
           path: ~/reports
+
+  test:
+    docker:
+      - image: cypress/base:12.13.0
+    working_directory: /home/circleci/project
+    steps:
+      - atscm/attach
+      - restore_cache:
+          keys:
+            - v2-npm-deps-{{ checksum "package-lock.json" }}
+            - v2-npm-deps
+      - run:
+          name: Put Cypress binary in place
+          command: |
+            mkdir -p /root/.cache
+            mv /home/circleci/.cache/Cypress /root/.cache/Cypress
+      - run:
+          name: Running tests
+          command: npm run test:ci
+      - store_test_results:
+          path: test/report
+      - store_artifacts:
+          path: test/report
 
   deploy:
     executor: atscm/node
@@ -132,9 +155,12 @@ workflows:
       - lint:
           requires:
             - install
-      - deploy:
+      - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - test
             - lint
           filters:
             branches:
