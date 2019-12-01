@@ -50,13 +50,13 @@ export default async function run(args = process.argv.slice(2)) {
       const esdoc = await readJson(join(repoDir, 'esdoc.json'));
       const options = esdoc.plugins.find(p => p.name === 'esdoc-standard-plugin').option;
       versionIndex.esdocOptions = options;
-      const manualFiles = options.manual.files.filter(p => p.includes('manual'));
+      const manualFiles = options.manual.files
+        .filter(p => p.includes('manual'))
+        .concat(options.manual.files.filter(p => p.toLowerCase().includes('contributing')));
 
       // Process manuals
       versionIndex.manuals = await Promise.all(
-        manualFiles.map(async file => {
-          return processMarkdown(await readFile(join(repoDir, file), 'utf8'));
-        })
+        manualFiles.map(async file => processMarkdown(await readFile(join(repoDir, file), 'utf8')))
       );
 
       // Process changelog
