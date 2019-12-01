@@ -30,9 +30,11 @@
       <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
     </p>
     <p>
-      <a href="https://github.com/atSCM/atscm">Get involved</a>
+      <a href="https://github.com/atSCM/atscm/blob/master/.github/CONTRIBUTING.md" target="_blank">
+        Get involved
+      </a>
       ·
-      <a href="https://github.com/atSCM/docs">Improve this page</a>
+      <a href="https://github.com/atSCM/docs" target="_blank">Improve this page</a>
     </p>
   </div>
 </footer>
