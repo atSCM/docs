@@ -40,4 +40,5 @@
 <!-- Additional routes to export -->
 <div style="display: none">
   <a href="search-index.json">Search index</a>
+  <a href="from-cli/?version=export">From CLI</a>
 </div>

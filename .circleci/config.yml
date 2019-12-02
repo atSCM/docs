@@ -58,6 +58,7 @@ jobs:
           root: .
           paths:
             - __sapper__
+            - src/data
 
   lint:
     executor: atscm/node

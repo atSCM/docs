@@ -5,6 +5,8 @@
 
   export let segment;
 
+  $: version = !segment || segment === 'from-cli' ? 'latest' : segment;
+
   const { page } = stores();
   const { tags } = getContext('index');
 
@@ -14,7 +16,8 @@
 <nav class="navbar is-spaced">
   <div class="container">
     <div class="navbar-brand">
-      <a href="." class="navbar-item" class:is-active={segment === undefined}>
+      <!-- class:is-active={segment === undefined} -->
+      <a href="." class="navbar-item">
         <strong>atscm</strong>
       </a>
 
@@ -31,30 +34,21 @@
 
     <div class="navbar-menu" class:is-active={menuOpen} on:click={() => (menuOpen = false)}>
       <div class="navbar-start">
-        <a
-          href={segment || 'latest'}
-          class="navbar-item"
-          class:is-active={$page.path.endsWith(segment)}>
+        <a href={version} class="navbar-item" class:is-active={$page.path.endsWith(segment)}>
           Readme
         </a>
 
-        <a
-          href="{segment || 'latest'}/docs"
-          class="navbar-item"
-          class:is-active={$page.path.includes('docs')}>
+        <a href="{version}/docs" class="navbar-item" class:is-active={$page.path.includes('docs')}>
           Manual
         </a>
 
-        <a
-          href="{segment || 'latest'}/api"
-          class="navbar-item"
-          class:is-active={$page.path.includes('api')}>
+        <a href="{version}/api" class="navbar-item" class:is-active={$page.path.includes('api')}>
           Reference
         </a>
       </div>
 
       <div class="navbar-end">
-        {#if $page.params && $page.params.version}
+        {#if $page.params && $page.params.version && $page.params.version !== 'from-cli'}
           <div class="navbar-item has-dropdown is-hoverable">
             <p class="navbar-link">
               <span>
@@ -94,9 +88,11 @@
 </nav>
 
 {#if $page.params && $page.params.version && $page.params.version !== 'latest'}
-  <div class="container">
-    <div class="message is-warning">
-      <div class="message-body">Documentation for beta releases may be incomplete.</div>
+  <div class="message-section">
+    <div class="container">
+      <div class="message is-warning">
+        <div class="message-body">Documentation for beta releases may be incomplete.</div>
+      </div>
     </div>
   </div>
 {/if}
