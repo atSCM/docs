@@ -1,24 +1,21 @@
 import { tags } from '../../src/data/index.json'; // eslint-disable-line import/no-unresolved
 
-const tag = tags.find(t => t.tag === 'beta');
+const betaTag = tags.find(t => t.tag === 'beta');
+const latestTag = tags.find(t => t.tag === 'latest');
+
+const noBeta = betaTag.version.startsWith(latestTag.version);
+const skipWithoutBeta = noBeta ? it.skip : it;
 
 describe('From CLI page', () => {
   it('should redirect to exact version', () => {
-    cy.visit(`/from-cli/?version=${tag.version}`);
-    cy.url().should('include', `/${tag.tag}`);
+    cy.visit(`/from-cli/?version=${betaTag.version}`);
+    cy.url().should('include', `/${betaTag.tag}`);
   });
 
-  it('should redirect to best matching version', () => {
-    const [major, minor, patch] = tag.version.split('.');
+  skipWithoutBeta('should redirect to best matching version', () => {
+    const [major, minor, patch] = betaTag.version.split('.');
     cy.visit(`/from-cli/?version=${major}.${minor}.${parseInt(patch, 10) + 1}`);
-    cy.url().should('include', `/${tag.tag}`);
-    cy.contains('.message', 'The exact version you requested couldn\'t be found')
-  });
-
-  it('should redirect to best matching version', () => {
-    const [major, minor, patch] = tag.version.split('.');
-    cy.visit(`/from-cli/?version=${major}.${minor}.${parseInt(patch, 10) + 1}`);
-    cy.url().should('include', `/${tag.tag}`);
+    cy.url().should('include', `/${betaTag.tag}`);
     cy.contains('.message', 'The exact version you requested couldn\'t be found')
   });
 
