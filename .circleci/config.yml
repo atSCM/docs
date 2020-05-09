@@ -29,13 +29,15 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v2-npm-deps-{{ checksum "package-lock.json" }}
-            - v2-npm-deps
+            - v3-npm-deps-{{ checksum "package-lock.json" }}
+            - v3-npm-deps
       - run:
           name: Installing npm dependencies
+          environment:
+            CYPRESS_INSTALL_BINARY: '0'
           command: npm ci
       - save_cache:
-          key: v2-npm-deps-{{ checksum "package-lock.json" }}
+          key: v3-npm-deps-{{ checksum "package-lock.json" }}
           paths:
             - ~/.npm
             - ~/.cache
@@ -77,19 +79,19 @@ jobs:
 
   test:
     docker:
-      - image: cypress/base:12.13.0
+      - image: cypress/included:4.5.0
     working_directory: /home/circleci/project
     steps:
       - atscm/attach
       - restore_cache:
           keys:
-            - v2-npm-deps-{{ checksum "package-lock.json" }}
-            - v2-npm-deps
-      - run:
-          name: Put Cypress binary in place
-          command: |
-            mkdir -p /root/.cache
-            mv /home/circleci/.cache/Cypress /root/.cache/Cypress
+            - v3-npm-deps-{{ checksum "package-lock.json" }}
+            - v3-npm-deps
+      # - run:
+      #     name: Put Cypress binary in place
+      #     command: |
+      #       mkdir -p /root/.cache
+      #       mv /home/circleci/.cache/Cypress /root/.cache/Cypress
       - run:
           name: Running tests
           command: npm run test:ci
