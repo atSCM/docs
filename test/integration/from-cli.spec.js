@@ -1,9 +1,12 @@
+import { lte } from 'semver'
 import { tags } from '../../src/data/index.json'; // eslint-disable-line import/no-unresolved
 
 const betaTag = tags.find(t => t.tag === 'beta');
 const latestTag = tags.find(t => t.tag === 'latest');
 
-const noBeta = betaTag.version.startsWith(latestTag.version);
+const [betaVersion] = betaTag.version.split('-');
+
+const noBeta = lte(betaVersion, latestTag.version);
 const skipWithoutBeta = noBeta ? it.skip : it;
 
 describe('From CLI page', () => {
