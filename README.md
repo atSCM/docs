@@ -14,7 +14,7 @@
 
 ## Overview
 
-This app is built with [Sapper](https://sapper.svelte.dev), displaying data extracted from [out main GitHub repositry](https://github.com/atSCM/atscm).
+This app is built with [Sapper](https://sapper.svelte.dev), displaying data extracted from [out main GitHub repository](https://github.com/atSCM/atscm).
 
 ## Getting started
 
