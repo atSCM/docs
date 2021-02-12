@@ -27,7 +27,7 @@ export default async function run(args = process.argv.slice(2)) {
   });
 
   await Promise.all(
-    versionsToFetch.map(async version => {
+    versionsToFetch.map(async (version) => {
       const dir = join(dataDir, version);
       const repoDir = join(dir, 'repo');
 
@@ -39,29 +39,35 @@ export default async function run(args = process.argv.slice(2)) {
       // eslint-disable-next-line no-console
       console.log(skipFetch ? 'skip fetching' : 'fetching', version);
       if (!skipFetch) {
-        const file = await gittar.fetch(`atscm/atscm#v${version}`);
+        const file = await gittar.fetch(`atscm/atscm#atscm-v${version}`);
         await gittar.extract(file, repoDir);
       }
 
+      const repoPackageDir = join(repoDir, 'packages/atscm');
+
       // Process readme
-      versionIndex.readme = processMarkdown(await readFile(join(repoDir, 'README.md'), 'utf8'));
+      versionIndex.readme = processMarkdown(
+        await readFile(join(repoPackageDir, 'README.md'), 'utf8')
+      );
 
       // Find manual files
-      const esdoc = await readJson(join(repoDir, 'esdoc.json'));
-      const options = esdoc.plugins.find(p => p.name === 'esdoc-standard-plugin').option;
+      const esdoc = await readJson(join(repoPackageDir, 'esdoc.json'));
+      const options = esdoc.plugins.find((p) => p.name === 'esdoc-standard-plugin').option;
       versionIndex.esdocOptions = options;
       const manualFiles = options.manual.files
-        .filter(p => p.includes('manual'))
-        .concat(options.manual.files.filter(p => p.toLowerCase().includes('contributing')));
+        .filter((p) => p.includes('manual'))
+        .concat(options.manual.files.filter((p) => p.toLowerCase().includes('contributing')));
 
       // Process manuals
       versionIndex.manuals = await Promise.all(
-        manualFiles.map(async file => processMarkdown(await readFile(join(repoDir, file), 'utf8')))
+        manualFiles.map(async (file) =>
+          processMarkdown(await readFile(join(repoPackageDir, file), 'utf8'))
+        )
       );
 
       // Process changelog
       versionIndex.changelog = processMarkdown(
-        await readFile(join(repoDir, 'CHANGELOG.md'), 'utf8'),
+        await readFile(join(repoPackageDir, 'CHANGELOG.md'), 'utf8'),
         {
           title: 'Changelog',
           slug: 'changelog',
@@ -75,7 +81,7 @@ export default async function run(args = process.argv.slice(2)) {
   await writeJson(join(dataDir, 'index.json'), index, { spaces: 2 });
 }
 
-run().catch(error => {
+run().catch((error) => {
   // eslint-disable-next-line no-console
   console.error(error);
   process.exitCode = 1;
