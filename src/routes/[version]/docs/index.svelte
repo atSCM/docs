@@ -21,14 +21,14 @@
 <p class="subtitle">Select one of the manuals below:</p>
 
 {#each topics as topic}
-  <a class="box" href="{$page.params.version}/docs/{topic.slug}">
+  <div class="box">
     <div class="content">
       {@html topic.description}
     </div>
     <div class="buttons is-right">
-      <div class="button is-link">View</div>
+      <a class="button is-link" href="{$page.params.version}/docs/{topic.slug}">View</a>
     </div>
-  </a>
+  </div>
 {/each}
 
 <style>

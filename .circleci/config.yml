@@ -121,7 +121,7 @@ jobs:
             git clone git@github.com:atSCM/atscm.github.io.git ../pages
             cd ../pages
             git rm -rf .
-            cp -r ../project/__sapper__/export/* .
+            cp -r ../project/__sapper__/export/. .
             git add .
             git commit -m "$(cat ../message) [ci skip]"
             git push origin master
