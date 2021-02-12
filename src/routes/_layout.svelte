@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { setContext } from 'svelte';
+  import { onMount, setContext, tick } from 'svelte';
   import { stores } from '@sapper/app';
   import Navbar from '../components/Navbar.svelte';
   import CookieNotice from '../components/CookieNotice.svelte';
@@ -20,6 +20,11 @@
   }
 
   setContext('index', { tags });
+
+  onMount(async () => {
+    await tick();
+    document.body.setAttribute('data-hydrated', 'hydrated');
+  });
 </script>
 
 <div class="fullscreen-content">
