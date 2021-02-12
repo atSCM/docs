@@ -76,7 +76,7 @@
     "@typescript-eslint/parser": "4.15.0",
     "bulma": "0.9.0",
     "cypress": "4.5.0",
-    "eslint": "7.18.0",
+    "eslint": "7.19.0",
     "eslint-config-prettier": "6.15.0",
     "eslint-plugin-svelte3": "3.0.0",
     "getopts": "2.2.5",
