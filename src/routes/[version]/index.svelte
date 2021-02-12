@@ -5,7 +5,7 @@
     if (!tags.find(({ tag }) => tag === version)) {
       return this.error(404, `Unknown release tag '${version}'`);
     }
-    const data = await this.fetch(`${version}/readme.json`).then(r => r.json());
+    const data = await this.fetch(`${version}/readme.json`).then((r) => r.json());
 
     return { readme: data };
   }

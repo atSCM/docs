@@ -1,6 +1,6 @@
 <script context="module">
   export async function preload({ params: { version } }) {
-    const topics = await this.fetch(`${version}/docs/overview.json`).then(r => r.json());
+    const topics = await this.fetch(`${version}/docs/overview.json`).then((r) => r.json());
 
     return { topics };
   }
@@ -14,12 +14,6 @@
 
   const { page } = stores();
 </script>
-
-<style>
-  .box .content {
-    font-size: 0.75em;
-  }
-</style>
 
 <SEO title="Manual" description="Guides & tutorials" />
 
@@ -36,3 +30,9 @@
     </div>
   </a>
 {/each}
+
+<style>
+  .box .content {
+    font-size: 0.75em;
+  }
+</style>

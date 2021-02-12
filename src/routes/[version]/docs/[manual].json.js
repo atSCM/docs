@@ -7,7 +7,7 @@ export async function get({ params: { version, manual: slug } }, res) {
   const path = join('src/data', exactVersion(version), 'index.json');
   const { manuals, changelog } = await readJson(path);
 
-  const manual = [...manuals, changelog].find(m => m.slug === slug);
+  const manual = [...manuals, changelog].find((m) => m.slug === slug);
 
   if (!manual) {
     send(res, 404, {});

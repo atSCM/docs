@@ -16,7 +16,7 @@ const legacy = !!process.env.SAPPER_LEGACY_BUILD;
 const onwarn = (warning, _onwarn) =>
   (warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) ||
   _onwarn(warning);
-const dedupe = importee => importee === 'svelte' || importee.startsWith('svelte/');
+const dedupe = (importee) => importee === 'svelte' || importee.startsWith('svelte/');
 
 export default {
   client: {

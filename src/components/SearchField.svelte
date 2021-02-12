@@ -34,7 +34,7 @@
       .slice(0, matchLength)
       .replace(
         new RegExp(needle, 'gi'),
-        m => `<span class="match has-text-primary has-text-bold">${m}</span>`
+        (m) => `<span class="match has-text-primary has-text-bold">${m}</span>`
       );
   }
 
@@ -51,7 +51,7 @@
     results = index
       .search(needle)
       .slice(0, 10)
-      .map(result => ({
+      .map((result) => ({
         ...result,
         matches: findMatches(result.text || result.title, needle),
       }));
@@ -59,39 +59,12 @@
 
   onMount(() => {
     loadIndex = fetch('search-index.json')
-      .then(r => r.json())
+      .then((r) => r.json())
       .then(({ keys, items }) => {
         index = new FuzzySearch(items, keys, { sort: true });
       });
   });
 </script>
-
-<style>
-  .dropdown-menu {
-    max-width: 100%;
-  }
-  .dropdown-item {
-    padding: 0.375rem 1rem;
-  }
-
-  .dropdown-item p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .dropdown-item p:first-child {
-    display: flex;
-  }
-
-  .space {
-    flex: 1;
-    min-width: 1rem;
-  }
-
-  .matches :global(.match) {
-    font-weight: bold;
-  }
-</style>
 
 <svelte:body on:click={handleDocumentClick} />
 
@@ -104,7 +77,8 @@
           type="search"
           placeholder="Search..."
           on:input={search}
-          on:focus={() => (showResults = true)} />
+          on:focus={() => (showResults = true)}
+        />
         <span class="icon is-small is-left">
           <i class="fas fa-search" />
         </span>
@@ -135,3 +109,30 @@
     </div>
   {/if}
 </div>
+
+<style>
+  .dropdown-menu {
+    max-width: 100%;
+  }
+  .dropdown-item {
+    padding: 0.375rem 1rem;
+  }
+
+  .dropdown-item p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dropdown-item p:first-child {
+    display: flex;
+  }
+
+  .space {
+    flex: 1;
+    min-width: 1rem;
+  }
+
+  .matches :global(.match) {
+    font-weight: bold;
+  }
+</style>

@@ -9,9 +9,7 @@ describe('Documentation page', () => {
   });
 
   it('navigates to alternate version', () => {
-    cy.get('a span')
-      .contains('beta')
-      .click({ force: true });
+    cy.get('a span').contains('beta').click({ force: true });
     cy.url().should('include', '/beta');
   });
 });

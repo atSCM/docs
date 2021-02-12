@@ -25,7 +25,8 @@
         role="button"
         class="navbar-burger burger"
         class:is-active={menuOpen}
-        on:click={() => (menuOpen = !menuOpen)}>
+        on:click={() => (menuOpen = !menuOpen)}
+      >
         <span aria-hidden="true" />
         <span aria-hidden="true" />
         <span aria-hidden="true" />
@@ -74,7 +75,6 @@
         </div>
         <div class="navbar-item">
           <div class="buttons">
-
             <a href="https://github.com/atscm" class="button is-light">
               <span class="icon">
                 <i class="fab fa-github" />

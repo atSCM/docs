@@ -8,9 +8,7 @@ describe('Navbar', () => {
 
     it('shows menu on click', () => {
       cy.get('.navbar-menu').should('not.be.visible');
-      cy.get('.navbar-burger')
-        .should('be.visible')
-        .click();
+      cy.get('.navbar-burger').should('be.visible').click();
       cy.get('.navbar-menu').should('be.visible');
     });
   });

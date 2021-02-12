@@ -38,7 +38,7 @@
 
     /* eslint-disable no-loop-func,no-cond-assign */
     do {
-      match = tags.find(t => t.version.startsWith(current));
+      match = tags.find((t) => t.version.startsWith(current));
     } while (!match && (current = widen(current)));
     /* eslint-enable */
 

@@ -1,6 +1,6 @@
 <script context="module">
   export async function preload({ params: { version } }) {
-    const topics = await this.fetch(`${version}/docs/toc.json`).then(r => r.json());
+    const topics = await this.fetch(`${version}/docs/toc.json`).then((r) => r.json());
 
     return { topics };
   }

@@ -3,7 +3,7 @@ import toText from 'html-to-text';
 import { HtmlSlice } from 'htmlslice';
 import { highlight } from 'highlight.js';
 
-const stripHtml = text => text.replace(/(<([^>]+)>)/gi, '');
+const stripHtml = (text) => text.replace(/(<([^>]+)>)/gi, '');
 
 export class TocRenderer extends marked.Renderer {
   constructor({ title, slug }) {

@@ -3,17 +3,6 @@
   export let folders = [];
 </script>
 
-<style>
-  .menu-list li a {
-    display: flex;
-    align-items: center;
-    line-height: 1;
-  }
-  .menu-list li a .space {
-    width: 1em;
-  }
-</style>
-
 <aside class="menu toc">
   {#each folders as { items, dirname } (dirname)}
     <p class="menu-label">{dirname}</p>
@@ -36,3 +25,14 @@
     </ul>
   {/each}
 </aside>
+
+<style>
+  .menu-list li a {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+  }
+  .menu-list li a .space {
+    width: 1em;
+  }
+</style>

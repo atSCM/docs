@@ -23,7 +23,7 @@ export class ReferenceIndex extends Map {
 
   constructor(data, { version, external = true, unexported = false }) {
     const index = [];
-    data.forEach(doc => {
+    data.forEach((doc) => {
       if (!external && doc.kind === 'external') return;
       if (!unexported && !doc.export) return;
       if (!doc.memberof) return;

@@ -5,12 +5,12 @@
 
   const { page } = stores();
 
-  const isActive = topic => $page.params.manual === topic.slug;
+  const isActive = (topic) => $page.params.manual === topic.slug;
 
   const link = (topic, section) =>
     `${$page.params.version}/docs/${topic.slug}${section ? `/#${section.slug}` : ''}`;
 
-  $: topicsExpanded = topics.map(t => isActive(t));
+  $: topicsExpanded = topics.map((t) => isActive(t));
 </script>
 
 <aside class="menu">

@@ -14,6 +14,19 @@
   }
 </script>
 
+{#if show}
+  <div class="box notification cookie-notice is-light is-flex-desktop is-size-7" transition:fade>
+    <div class="text">
+      <strong>Cookies:</strong>
+      This site uses cookies. Cookies store your preferred settings and other information that will help
+      us improve our service. By using our website, you agree to the use of cookies.
+    </div>
+    <button class="button is-dark is-small" type="submit" on:click={accept}>
+      Close and accept
+    </button>
+  </div>
+{/if}
+
 <style>
   .cookie-notice {
     position: fixed;
@@ -37,16 +50,3 @@
     flex: 1;
   }
 </style>
-
-{#if show}
-  <div class="box notification cookie-notice is-light is-flex-desktop is-size-7" transition:fade>
-    <div class="text">
-      <strong>Cookies:</strong>
-      This site uses cookies. Cookies store your preferred settings and other information that will
-      help us improve our service. By using our website, you agree to the use of cookies.
-    </div>
-    <button class="button is-dark is-small" type="submit" on:click={accept}>
-      Close and accept
-    </button>
-  </div>
-{/if}

@@ -7,7 +7,7 @@ export async function get({ params: { version } }, res) {
   const path = join('src/data', exactVersion(version), 'index.json');
   const { manuals, changelog } = await readJson(path);
 
-  const topics = [...manuals, changelog].map(item => ({
+  const topics = [...manuals, changelog].map((item) => ({
     title: item.title,
     slug: item.slug,
     sections: item.sections,

@@ -14,9 +14,7 @@ describe('Landing page', () => {
   });
 
   it('navigates to latest documentation', () => {
-    cy.get('a.button')
-      .contains('Documentation')
-      .click();
+    cy.get('a.button').contains('Documentation').click();
     cy.url().should('include', '/latest');
   });
 });

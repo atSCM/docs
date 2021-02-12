@@ -1,6 +1,6 @@
 <script context="module">
   export async function preload({ params: { version } }) {
-    const index = await this.fetch(`${version}/api/data.json`).then(r => r.json());
+    const index = await this.fetch(`${version}/api/data.json`).then((r) => r.json());
 
     return { index };
   }
@@ -16,7 +16,7 @@
 
   let folders = [];
   const folderMap = new Map();
-  index.forEach(item => {
+  index.forEach((item) => {
     let folder = folderMap.get(item.dirname);
     if (!folder) {
       folder = { dirname: item.dirname, items: [] };
@@ -28,19 +28,13 @@
 
   const { page, preloading } = stores();
 
-  const apiLink = item => `${$page.params.version}/api/#${item.slug}`;
-  const paramString = p => (p ? `(${p.map(pp => pp.name).join(', ')})` : '');
+  const apiLink = (item) => `${$page.params.version}/api/#${item.slug}`;
+  const paramString = (p) => (p ? `(${p.map((pp) => pp.name).join(', ')})` : '');
 
   function jumpTo(e) {
     window.location = e.target.value;
   }
 </script>
-
-<style>
-  .item {
-    margin: 3rem 0;
-  }
-</style>
 
 <SEO title="API Reference" description="Guides & tutorials" />
 
@@ -113,3 +107,9 @@
     </div>
   </div>
 </div>
+
+<style>
+  .item {
+    margin: 3rem 0;
+  }
+</style>

@@ -22,12 +22,6 @@
   setContext('index', { tags });
 </script>
 
-<style>
-  .fullscreen-content {
-    min-height: 100vh;
-  }
-</style>
-
 <div class="fullscreen-content">
   <Navbar {segment} />
 
@@ -56,3 +50,9 @@
 </footer>
 
 <CookieNotice />
+
+<style>
+  .fullscreen-content {
+    min-height: 100vh;
+  }
+</style>
