@@ -2,10 +2,16 @@
 
 import { append } from './dom';
 
-export function gtag() {
+declare global {
+  interface Window {
+    dataLayer: any[][];
+  }
+}
+
+export function gtag(...payload: [string, ...any[]]) {
   if (process.browser) {
     // eslint-disable-next-line prefer-rest-params
-    dataLayer.push(arguments);
+    window.dataLayer.push(payload);
   }
 }
 

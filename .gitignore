@@ -1,4 +1,5 @@
 __sapper__
-node_modules
+/node_modules
+/src/node_modules/@sapper/
 test/report
 src/data

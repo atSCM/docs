@@ -5,8 +5,18 @@ import { highlight } from 'highlight.js';
 
 const stripHtml = (text) => text.replace(/(<([^>]+)>)/gi, '');
 
+type Section = {
+  title: string;
+  slug: string;
+  children?: Section[];
+};
+
 export class TocRenderer extends marked.Renderer {
-  constructor({ title, slug }) {
+  meta: { title: string; slug: string; sections: Section[] };
+  private rootHeaderLevel: number;
+  private sectionTree: Section[];
+
+  constructor({ title, slug }: { title: string; slug: string } | { title?: never; slug?: never }) {
     super();
 
     if (title && !slug) {
@@ -23,7 +33,7 @@ export class TocRenderer extends marked.Renderer {
     this.sectionTree = [];
   }
 
-  heading(text, level, raw, slugger) {
+  heading(text: string, level: 1 | 2 | 3 | 4 | 5 | 6, raw: string, slugger: marked.Slugger) {
     const slug = slugger.slug(raw);
 
     if (level === this.rootHeaderLevel) {
@@ -65,7 +75,16 @@ marked.setOptions({
   },
 });
 
-export function processMarkdown(markdown, { baseUrl = null, title, slug } = {}) {
+interface MarkdownOptions {
+  baseUrl?: string;
+  title?: string;
+  slug?: string;
+}
+
+export function processMarkdown(
+  markdown: string,
+  { baseUrl = null, title, slug }: MarkdownOptions = {}
+) {
   const renderer = new TocRenderer({ title, slug });
   const content = marked(markdown, { renderer, baseUrl });
   const slice = new HtmlSlice(content);

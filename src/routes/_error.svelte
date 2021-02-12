@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
   import SEO from '../components/SEO.svelte';
 
-  export let status;
-  export let error;
+  export let status: number;
+  export let error: Error;
 
   function goBack() {
     history.back();

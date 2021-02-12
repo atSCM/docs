@@ -61,6 +61,7 @@ jobs:
           paths:
             - __sapper__
             - src/data
+            - src/node_modules
 
   lint:
     executor: atscm/node
@@ -76,6 +77,14 @@ jobs:
           path: ~/reports
       - store_artifacts:
           path: ~/reports
+
+  validate:
+    executor: atscm/node
+    steps:
+      - atscm/attach
+      - run:
+          name: Run svelte-check
+          command: npm run validate
 
   test:
     docker:
@@ -158,6 +167,9 @@ workflows:
       - lint:
           requires:
             - install
+      - validate:
+          requires:
+            - build
       - test:
           requires:
             - build
@@ -165,6 +177,7 @@ workflows:
           requires:
             - test
             - lint
+            - validate
           filters:
             branches:
               only:

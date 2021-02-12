@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { setContext } from 'svelte';
   import { stores } from '@sapper/app';
   import Navbar from '../components/Navbar.svelte';
@@ -7,7 +7,7 @@
   import { tags } from '../data/index.json'; // eslint-disable-line import/no-unresolved
   import { analyticsTrackingId } from '../config';
 
-  export let segment;
+  export let segment: string;
 
   const { page } = stores();
 

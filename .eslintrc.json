@@ -1,25 +1,22 @@
 {
-  "parserOptions": {
-    "ecmaVersion": 2018
-  },
-  "plugins": ["svelte3"],
-  "extends": ["@ls-age", "prettier"],
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "@ls-age",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/@typescript-eslint"
+  ],
   "rules": {
     "compat/compat": "off"
   },
   "overrides": [
     {
-      "files": ["*.svelte"],
-      "processor": "svelte3/svelte3",
+      "files": "*.ts",
       "rules": {
-        "prefer-const": "off",
-        "@typescript-eslint/indent": "off",
-        "no-undef-init": "off",
-        "import/imports-first": "off",
-        "import/order": "off",
-        "import/no-mutable-exports": "off",
-        "import/prefer-default-export": "off",
-        "import/no-duplicates": "off"
+        "jsdoc/require-param-type": "off"
       }
     }
   ]

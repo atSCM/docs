@@ -42,6 +42,7 @@
   <div class="container">
     <nav class="field">
       <div class="select is-rounded" class:is-loading={$preloading}>
+        <!-- svelte-ignore a11y-no-onchange -->
         <select on:change={jumpTo} value={$page.params.slug}>
           <option>Jump to...</option>
           {#each folders as { items, dirname } (dirname)}

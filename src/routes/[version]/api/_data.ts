@@ -12,7 +12,15 @@ function filterMap(array, callback) {
   }, []);
 }
 
-export class ReferenceIndex extends Map {
+interface ReferenceIndexItem {
+  description: string;
+  dirname: string;
+  slug: string;
+
+  longname?: string;
+}
+
+export class ReferenceIndex extends Map<string, ReferenceIndexItem> {
   static slug(doc) {
     const dir = dirname(relative('src', doc.memberof));
     const file = basename(doc.memberof, extname(doc.memberof));
@@ -20,6 +28,8 @@ export class ReferenceIndex extends Map {
 
     return { dir, file, slug };
   }
+
+  readonly version: string;
 
   constructor(data, { version, external = true, unexported = false }) {
     const index = [];
@@ -60,7 +70,12 @@ export class ReferenceIndex extends Map {
 }
 
 export async function loadReference({ version, ...options }) {
-  const path = join('src/data', exactVersion(version), 'repo/docs/api/index.json');
+  const path = join(
+    process.cwd(),
+    'src/data',
+    exactVersion(version),
+    'repo/packages/atscm/docs/api/index.json'
+  );
   const esdocIndex = await readJson(path);
 
   return new ReferenceIndex(esdocIndex, { version, ...options });

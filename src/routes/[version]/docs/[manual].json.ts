@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { readJson } from 'fs-extra';
 import send from '@polka/send-type';
-import { exactVersion } from './../_helpers';
+import { exactVersion } from '../_helpers';
 
 export async function get({ params: { version, manual: slug } }, res) {
   const path = join('src/data', exactVersion(version), 'index.json');
